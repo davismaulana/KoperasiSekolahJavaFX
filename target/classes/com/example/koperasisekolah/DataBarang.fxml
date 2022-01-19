@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="753.0" style="-fx-background-color: #F5F5F5;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.koperasisekolah.DataBarangController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Data Barang" textFill="#f05454">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="106.0" prefHeight="43.0" prefWidth="725.0" style="-fx-background-color: #F05454;">
+         <children>
+            <Label text="Id " textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="18.0" prefHeight="21.0" prefWidth="153.0" text="Nama" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="194.0" layoutY="18.0" prefHeight="21.0" prefWidth="47.0" text="Stok" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="186.0" layoutY="21.0" prefHeight="21.0" prefWidth="96.0" text="Harga" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label alignment="TOP_LEFT" layoutX="419.0" layoutY="18.0" prefHeight="21.0" prefWidth="96.0" text="Kulak" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="311.0" layoutY="18.0" prefHeight="21.0" prefWidth="90.0" text="Tanggal" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label alignment="CENTER" layoutX="295.0" layoutY="21.0" prefHeight="21.0" text="Ubah" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Label alignment="CENTER" layoutX="539.0" layoutY="21.0" prefHeight="21.0" text="Hapus" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="163.0" prefHeight="271.0" prefWidth="725.0" style="-fx-border-color: #F5F5F5; -fx-background-color: #F5F5F5;">
+         <content>
+            <VBox fx:id="panelBarang" prefHeight="299.0" prefWidth="725.0" style="-fx-background-color: #F5F5F5;" />
+         </content>
+      </ScrollPane>
+      <JFXButton fx:id="tambahBarang" layoutX="649.0" layoutY="72.0" onAction="#tambahBarangOnAction" prefHeight="25.0" prefWidth="90.0" ripplerFill="#f05454" style="-fx-border-color: #F05454; -fx-border-radius: 20;" text="Tambah" textFill="#f05454">
+         <graphic>
+            <ImageView fx:id="tambahLogo" fitHeight="17.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../image/icons8-add-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <Label layoutX="14.0" layoutY="75.0" text="Search : " textFill="#f05454">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField layoutX="77.0" layoutY="73.0" prefHeight="25.0" prefWidth="153.0" />
+   </children>
+</AnchorPane>

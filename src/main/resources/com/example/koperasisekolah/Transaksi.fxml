@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="454.0" prefWidth="753.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.koperasisekolah.TransaksiController">
+   <children>
+      <AnchorPane prefHeight="454.0" prefWidth="353.0" style="-fx-background-color: #f05454;">
+         <children>
+            <JFXButton layoutX="14.0" layoutY="410.0" prefHeight="29.0" prefWidth="324.0" style="-fx-background-color: white;" text="Tambah" textFill="#f05454">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+            <ScrollPane hbarPolicy="NEVER" layoutX="15.0" layoutY="121.0" prefHeight="184.0" prefWidth="324.0">
+               <content>
+                  <VBox fx:id="panelTransaksi" prefHeight="182.0" prefWidth="305.0" />
+               </content>
+            </ScrollPane>
+            <TextField layoutX="91.0" layoutY="350.0" prefHeight="25.0" prefWidth="246.0" />
+            <Label layoutX="14.0" layoutY="14.0" text="Transaksi" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <TextField layoutX="120.0" layoutY="85.0" prefHeight="25.0" prefWidth="217.0" />
+            <Label layoutX="14.0" layoutY="88.0" text="Nama Barang " textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="353.0" text="Jumlah " textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="321.0" prefHeight="20.0" prefWidth="51.0" text="Stok     " textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="91.0" layoutY="321.0" text="18" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="377.0" layoutY="14.0" text="Data Transaksi" textFill="#f05454">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_LEFT" layoutX="377.0" layoutY="65.0" prefHeight="35.0" prefWidth="353.0" spacing="10.0" style="-fx-background-color: #f05454;">
+         <children>
+            <Label prefHeight="20.0" prefWidth="126.0" text="Nama Barang" textFill="WHITE">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="114.0" layoutY="18.0" text="Jumlah" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="19.0" prefHeight="20.0" prefWidth="90.0" text="Harga" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="168.0" layoutY="18.0" text="Hapus" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </HBox>
+      <ScrollPane hbarPolicy="NEVER" layoutX="377.0" layoutY="108.0" prefHeight="200.0" prefWidth="353.0">
+         <content>
+            <VBox fx:id="panelDataTransaksi" prefHeight="200.0" prefWidth="353.0" />
+         </content>
+      </ScrollPane>
+      <Label layoutX="377.0" layoutY="327.0" text="Total" textFill="#f05454">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField disable="true" layoutX="481.0" layoutY="324.0" prefHeight="25.0" prefWidth="233.0" />
+      <Label layoutX="376.0" layoutY="367.0" text="Bayar" textFill="#f05454">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="481.0" layoutY="364.0" prefHeight="25.0" prefWidth="233.0" />
+      <Label layoutX="376.0" layoutY="403.0" text="Bayar" textFill="#f05454">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="481.0" layoutY="403.0" text="0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.koperasisekolah.KoperasiController">
+   <children>
+      <AnchorPane prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #F05454;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fx:id="menu" fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../image/icons8-menu-96.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="46.0" prefHeight="451.0" prefWidth="47.0" style="-fx-background-color: #ffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="46.1">
+         <children>
+            <VBox alignment="TOP_CENTER" layoutX="1.0" layoutY="41.0" prefHeight="200.0" prefWidth="45.0" spacing="15.0" AnchorPane.topAnchor="30.0">
+               <children>
+                  <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../image/icons8-home-90.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="32.0" layoutX="17.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../image/icons8-dashboard-layout-96.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <StackPane fx:id="contentArea" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="46.1" />
+      <AnchorPane fx:id="pane1" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane prefHeight="451.0" prefWidth="47.0" style="-fx-background-color: #ffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="46.2">
+         <children>
+            <VBox alignment="TOP_CENTER" layoutX="1.0" layoutY="41.0" prefHeight="243.0" prefWidth="45.0" spacing="15.0" AnchorPane.topAnchor="30.0">
+               <children>
+                  <ImageView fx:id="dashboard" fitHeight="46.0" fitWidth="32.0" layoutX="17.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../image/icons8-dashboard-layout-96.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="transaksi" fitHeight="46.0" fitWidth="32.0" layoutX="17.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../image/icons8-calculator-100.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dataBarang" fitHeight="46.0" fitWidth="32.0" layoutX="17.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../image/icons8-new-product-96.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="laporan" fitHeight="46.0" fitWidth="32.0" layoutX="17.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../image/icons8-note-64.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="logout" fitHeight="46.0" fitWidth="32.0" layoutX="17.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../image/icons8-logout-96.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pane2" prefHeight="441.0" prefWidth="166.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="46.1">
+         <children>
+            <VBox layoutY="20.0" prefHeight="427.0" prefWidth="166.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="30.0">
+               <children>
+                  <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="10.0" onAction="#dashboardPane" prefHeight="27.0" prefWidth="166.0" text="Dashboard">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="106.0" onAction="#transaksiPane" prefHeight="23.0" prefWidth="166.0" text="Transaksi">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="48.0" onAction="#dataBarangPane" prefHeight="16.0" prefWidth="166.0" text="Data Barang">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="58.0" onAction="#laporanPane" prefHeight="41.0" prefWidth="166.0" text="Laporan">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="logout_btn" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="154.0" prefHeight="31.0" prefWidth="166.0" text="Logout">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label prefWidth="19.0" text="1" textFill="#f05454">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </Label>
+      <Label layoutX="20.0" layoutY="15.0" prefWidth="116.0" text="23/1/2022">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </Label>
+      <Label layoutX="43.0" layoutY="15.0" prefWidth="153.0" text="Dasi">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </Label>
+      <Label layoutX="169.0" layoutY="15.0" prefWidth="96.0" text="4000">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </Label>
+      <Label layoutX="333.0" layoutY="15.0" prefWidth="96.0" text="6000">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </Label>
+      <Label layoutX="439.0" layoutY="15.0" prefWidth="96.0" text="10">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </Label>
+      <Label layoutX="545.0" layoutY="15.0" prefWidth="96.0" text="5">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </Label>
+   </children>
+</HBox>

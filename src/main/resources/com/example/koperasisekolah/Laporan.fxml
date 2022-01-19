@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="454.0" prefWidth="753.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.koperasisekolah.LaporanController">
+   <children>
+      <Label layoutX="15.0" layoutY="14.0" text="Laporan" textFill="#f05454">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="15.0" layoutY="75.0" prefHeight="98.0" prefWidth="232.0" style="-fx-border-color: #F05454;">
+         <children>
+            <Label layoutX="154.0" layoutY="57.0" text="Tanggal" textFill="#f05454">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker cache="true" editable="false" layoutX="52.0" layoutY="21.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="28.0" prefWidth="165.0" promptText="Tanggal" />
+            <ImageView fx:id="tanggal" fitHeight="35.0" fitWidth="44.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../image/icons8-calendar-100.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="261.0" layoutY="75.0" prefHeight="98.0" prefWidth="232.0" style="-fx-border-color: #F05454;">
+         <children>
+            <Label layoutX="121.0" layoutY="64.0" text="Keuntungan" textFill="#f05454">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="86.0" layoutY="21.0" text="Rp. 1300000" textFill="#f05454">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="uang" fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../image/icons8-paper-money-96.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="506.0" layoutY="75.0" prefHeight="98.0" prefWidth="232.0" style="-fx-border-color: #F05454;">
+         <children>
+            <Label layoutX="123.0" layoutY="64.0" text="Pendapatan" textFill="#f05454">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="86.0" layoutY="21.0" text="Rp. 1300000" textFill="#f05454">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="uang2" fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../image/icons8-paper-money-96.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="227.0" prefHeight="35.0" prefWidth="725.0" style="-fx-background-color: #F05454;">
+         <children>
+            <Label prefHeight="21.0" prefWidth="19.0" text="Id" textFill="#fffdfd">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="19.0" prefHeight="21.0" prefWidth="116.0" text="Tanggal" textFill="#fffdfd">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="21.0" layoutY="19.0" prefWidth="153.0" text="Nama" textFill="#fffdfd">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="95.0" layoutY="19.0" prefHeight="21.0" prefWidth="96.0" text="Kulak" textFill="#fffdfd">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="297.0" layoutY="17.0" prefHeight="21.0" prefWidth="96.0" text="Harga" textFill="#fffdfd">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="126.0" layoutY="19.0" prefWidth="96.0" text="Jumlah Kulak" textFill="#fffdfd">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="525.0" layoutY="17.0" prefWidth="96.0" text="Terjual" textFill="#fffdfd">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <ScrollPane hbarPolicy="NEVER" layoutX="15.0" layoutY="273.0" prefHeight="168.0" prefWidth="725.0" style="-fx-border-color: #f5f5f5; -fx-background-color: #f5f5f5;">
+         <content>
+            <VBox fx:id="panelLaporan" prefHeight="165.0" prefWidth="712.0" style="-fx-border-color: #f5f5f5;" />
+         </content>
+      </ScrollPane>
+      <JFXButton layoutX="622.0" layoutY="192.0" ripplerFill="RED" style="-fx-border-color: red; -fx-border-radius: 20;" text="Hapus Riwayat" textFill="RED">
+         <graphic>
+            <ImageView fx:id="hapusRiwayat" fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../image/icons8-delete-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>
