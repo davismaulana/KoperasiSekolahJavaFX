@@ -19,7 +19,7 @@ public class LaporanController implements Initializable {
     private VBox panelLaporan = null;
 
     @FXML
-    private ImageView hapusRiwayat, tanggal, uang, uang2;
+    private ImageView hapusRiwayat, tanggal, uang, uang2, background;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,6 +39,10 @@ public class LaporanController implements Initializable {
         File uang2File = new File("image/icons8-paper-money-96.png");
         Image uang2Image = new Image(uang2File.toURI().toString());
         uang2.setImage(uang2Image);
+
+        File backgroundFile = new File("image/background_dataBarang.png");
+        Image backgroundImage = new Image(backgroundFile.toURI().toString());
+        background.setImage(backgroundImage);
 
         Node[] nodes = new Node[10];
         for (int i = 0; i<nodes.length; i++){

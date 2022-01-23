@@ -4,18 +4,17 @@ package com.example.koperasisekolah;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,6 +31,9 @@ public class loginController implements Initializable {
 
     @FXML
     private Button loginButton;
+
+    @FXML
+    private Label loginMessageLabel;
 
     @FXML
     private ImageView brandingImageView;
@@ -60,51 +62,21 @@ public class loginController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 DBUtils.logInUser(event, usernameTextField.getText(), passwordField.getText());
+
             }
         });
 
     }
 
-    public void loginButtonOnAction(ActionEvent event) {
-//        if (usernameTextField.getText().isBlank() && passwordField.getText().isBlank() == false) {
-//            validateLogin();
-//        } else {
-//            loginMessageLabel.setText("Tolong isi username dan password anda");
-//        }
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Koperasi.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            root.setOnMousePressed(mouseEvent -> {
-                x = mouseEvent.getSceneX();
-                y = mouseEvent.getSceneY();
-            });
-
-            root.setOnMouseDragged(mouseEvent -> {
-                stage.setX(mouseEvent.getSceneX() - x);
-                stage.setY(mouseEvent.getSceneY() - y);
-            });
-
-            stage.setResizable(false);
-            stage.show();
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Stage stageclose = (Stage) loginButton.getScene().getWindow();
-        stageclose.close();
-
-    }
-
-
     public void cancelButtonOnAction(ActionEvent event){
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
+
+    public void setMessageLabel(String Message){
+        loginMessageLabel.setText(Message);
+    }
+
 
 //    public void loginButtonOnAction(ActionEvent event) throws IOException {
 //        loginMessageLabel.setText("Login Error. Coba login ulang");

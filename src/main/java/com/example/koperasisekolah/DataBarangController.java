@@ -28,7 +28,7 @@ public class DataBarangController implements Initializable {
     private Button tambahBarang;
 
     @FXML
-    private ImageView tambahLogo;
+    private ImageView tambahLogo, background;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -45,6 +45,12 @@ public class DataBarangController implements Initializable {
         File tambahLogoFile = new File("image/icons8-add-48.png");
         Image tambahLogoImage = new Image(tambahLogoFile.toURI().toString());
         tambahLogo.setImage(tambahLogoImage);
+
+        File backgroundFile = new File("image/background_dataBarang.png");
+        Image backgroundImage = new Image(backgroundFile.toURI().toString());
+        background.setImage(backgroundImage);
+
+
     }
 
     public void tambahBarangOnAction (ActionEvent event) throws IOException {
@@ -54,6 +60,7 @@ public class DataBarangController implements Initializable {
         stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);
+        stage.requestFocus();
         stage.show();
     }
 }

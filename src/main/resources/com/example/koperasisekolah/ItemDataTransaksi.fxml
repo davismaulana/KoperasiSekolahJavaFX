@@ -6,16 +6,28 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-
-<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="353.0" spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.koperasisekolah.ItemDataTransaksiController">
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="564.0" spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.koperasisekolah.ItemDataTransaksiController">
    <children>
-      <Label prefWidth="126.0" text="Pensil" />
-      <Label layoutX="20.0" layoutY="16.0" prefWidth="44.0" text="10" />
-      <Label layoutX="156.0" layoutY="16.0" prefWidth="90.0" text="30000" />
+      <Label prefWidth="196.0" text="Pensil">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin></Label>
+      <Label layoutX="20.0" layoutY="16.0" prefWidth="95.0" text="10">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="156.0" layoutY="16.0" prefWidth="145.0" text="30000">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
       <Button mnemonicParsing="false" prefWidth="39.0" style="-fx-background-color: #f5f5f5;">
          <graphic>
-            <ImageView fx:id="hapusImg" fitHeight="17.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="hapusImg" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../image/icons8-close-96.png" />
                </image>

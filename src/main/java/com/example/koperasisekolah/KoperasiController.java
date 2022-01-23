@@ -9,10 +9,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -25,7 +27,7 @@ import java.util.logging.Logger;
 public class KoperasiController implements Initializable {
 
     @FXML
-    private ImageView menu, dashboard, dataBarang, logout, laporan, transaksi;
+    private ImageView menu, dashboard, dataBarang, logout, laporan, transaksi, close;
 
     @FXML
     private AnchorPane pane1, pane2;
@@ -34,7 +36,10 @@ public class KoperasiController implements Initializable {
     private StackPane contentArea;
 
     @FXML
-    private Button logout_btn;
+    private Button logout_btn, closeBtn;
+
+    @FXML
+    private Label usernameLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -43,6 +48,9 @@ public class KoperasiController implements Initializable {
         Image menuImage = new Image(menuFile.toURI().toString());
         menu.setImage(menuImage);
 
+        File closeFile = new File("image/icons8-close-96.png");
+        Image closeImage = new Image(closeFile.toURI().toString());
+        close.setImage(closeImage);
 
         File dashboardFile = new File("image/icons8-dashboard-layout-96.png");
         Image dashboardImage = new Image(dashboardFile.toURI().toString());
@@ -75,18 +83,19 @@ public class KoperasiController implements Initializable {
         translateTransition.setByX(-600);
         translateTransition.play();
 
-        menu.setOnMouseClicked(event -> {
-            pane1.setVisible(true);
 
-            FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), pane1);
-            fadeTransition1.setFromValue(1);
-            fadeTransition1.setToValue(0.15);
-            fadeTransition1.play();
-
-            TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5),pane2);
-            translateTransition1.setByX(+600);
-            translateTransition1.play();
-        });
+//        menu.setOnMouseClicked(event -> {
+//            pane1.setVisible(true);
+//
+//            FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), pane1);
+//            fadeTransition1.setFromValue(1);
+//            fadeTransition1.setToValue(0.15);
+//            fadeTransition1.play();
+//
+//            TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5),pane2);
+//            translateTransition1.setByX(+600);
+//            translateTransition1.play();
+//        });
 
         pane1.setOnMouseClicked(event -> {
             FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), pane1);
@@ -119,6 +128,24 @@ public class KoperasiController implements Initializable {
         });
     }
 
+    public void closeActionBtn(ActionEvent event){
+        Stage stage = (Stage) closeBtn.getScene().getWindow();
+        stage.close();
+    }
+
+    public void showMenu(ActionEvent event) {
+        pane1.setVisible(true);
+
+        FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), pane1);
+        fadeTransition1.setFromValue(1);
+        fadeTransition1.setToValue(0.15);
+        fadeTransition1.play();
+
+        TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5),pane2);
+        translateTransition1.setByX(+600);
+        translateTransition1.play();
+    }
+
     public void dashboardPane(ActionEvent event) throws Exception{
         Parent fxml = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
         contentArea.getChildren().removeAll();
@@ -141,6 +168,10 @@ public class KoperasiController implements Initializable {
         Parent fxml = FXMLLoader.load(getClass().getResource("Transaksi.fxml"));
         contentArea.getChildren().removeAll();
         contentArea.getChildren().setAll(fxml);
+    }
+
+    public void setUserInformation(String username){
+        usernameLabel.setText(username);
     }
 
 }

@@ -33,7 +33,7 @@
             <TextField fx:id="usernameTextField" layoutX="97.0" layoutY="126.0" prefHeight="25.0" prefWidth="164.0" promptText="Username" />
             <Label layoutX="26.0" layoutY="168.0" text="Password" />
             <TextField fx:id="passwordField" layoutX="97.0" layoutY="164.0" prefHeight="25.0" prefWidth="164.0" promptText="Password" />
-            <Button fx:id="loginButton" layoutX="28.0" layoutY="255.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="25.0" prefWidth="235.0" style="-fx-background-color: #F05454;" text="Login" textFill="WHITE">
+            <Button fx:id="loginButton" layoutX="28.0" layoutY="255.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="235.0" style="-fx-background-color: #F05454;" text="Login" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
@@ -43,7 +43,7 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Label fx:id="loginMessageLabel" layoutX="132.0" layoutY="224.0" textAlignment="CENTER" textFill="RED" />
+            <Label fx:id="loginMessageLabel" layoutX="132.0" layoutY="224.0" prefHeight="17.0" prefWidth="0.0" textAlignment="CENTER" textFill="RED" />
          </children>
       </AnchorPane>
    </right>
