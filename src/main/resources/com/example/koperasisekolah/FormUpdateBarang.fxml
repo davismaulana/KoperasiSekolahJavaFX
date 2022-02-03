@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="342.0" style="-fx-border-color: #F05454;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.koperasisekolah.TambahBarangController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="342.0" style="-fx-border-color: #F05454;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.koperasisekolah.UpdateBarangController">
    <children>
-      <Label fx:id="judul" layoutX="14.0" layoutY="14.0" text="Tambah Data barang" textFill="#f05454">
+      <Label fx:id="judul" layoutX="14.0" layoutY="14.0" text="Ubah Data barang" textFill="#f05454">
          <font>
             <Font size="18.0" />
          </font>

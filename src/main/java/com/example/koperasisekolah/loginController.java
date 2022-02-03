@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class loginController implements Initializable {
@@ -61,7 +62,66 @@ public class loginController implements Initializable {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.logInUser(event, usernameTextField.getText(), passwordField.getText());
+                PreparedStatement preparedStatement = null;
+                ResultSet resultSet = null;
+                try{
+                    preparedStatement = DBUtils.getConnect().prepareStatement("SELECT * FROM datauser WHERE username = ?");
+                    preparedStatement.setString(1, usernameTextField.getText());
+                    resultSet = preparedStatement.executeQuery();
+
+
+
+                    if (!resultSet.isBeforeFirst()){
+                        setMessageLabel("Username belum terdaftar");
+
+                    }else{
+                        while (resultSet.next()){
+                            String retrievedPassword = resultSet.getString("password");
+                            String dataBagian = resultSet.getString("bagian");
+                            if (retrievedPassword.equals(passwordField.getText())){
+                                if (dataBagian.equals("admin")){
+                                    DBUtils.changeSceneAdmin(event, "Koperasi.fxml", usernameTextField.getText());
+                                    Stage stage = (Stage) loginButton.getScene().getWindow();
+                                    stage.close();
+                                }else if (dataBagian.equals("kepalaKoperasi")){
+                                    DBUtils.changeSceneKepala(event, "KepalaKoperasi.fxml", usernameTextField.getText());
+                                    Stage stage = (Stage) loginButton.getScene().getWindow();
+                                    stage.close();
+                                }else {
+                                    setMessageLabel("Anda siapa?");
+                                }
+
+                            }else {
+                                setMessageLabel("Password salah");
+
+                            }
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (resultSet != null){
+                        try {
+                            resultSet.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (preparedStatement != null){
+                        try{
+                            preparedStatement.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (DBUtils.getConnect() != null){
+                        try {
+                            DBUtils.getConnect().close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
 
             }
         });

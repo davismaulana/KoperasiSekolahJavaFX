@@ -24,10 +24,10 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class KoperasiController implements Initializable {
+public class KepalaKoperasiController implements Initializable {
 
     @FXML
-    private ImageView menu, dashboard, dataBarang, logout, transaksi, close, laporan;
+    private ImageView menu, logout, laporan, close;
 
     @FXML
     private AnchorPane pane1, pane2;
@@ -52,21 +52,9 @@ public class KoperasiController implements Initializable {
         Image closeImage = new Image(closeFile.toURI().toString());
         close.setImage(closeImage);
 
-        File dashboardFile = new File("image/icons8-dashboard-layout-96.png");
-        Image dashboardImage = new Image(dashboardFile.toURI().toString());
-        dashboard.setImage(dashboardImage);
-
-        File dataBarangFile = new File("image/icons8-new-product-96.png");
-        Image dataBarangImage = new Image(dataBarangFile.toURI().toString());
-        dataBarang.setImage(dataBarangImage);
-
         File laporanFile = new File("image/icons8-note-64.png");
         Image laporanImage = new Image(laporanFile.toURI().toString());
         laporan.setImage(laporanImage);
-
-        File transaksiFile = new File("image/icons8-calculator-100.png");
-        Image transaksiImage = new Image(transaksiFile.toURI().toString());
-        transaksi.setImage(transaksiImage);
 
         File logoutFile = new File("image/icons8-logout-96.png");
         Image logoutImage = new Image(logoutFile.toURI().toString());
@@ -113,7 +101,7 @@ public class KoperasiController implements Initializable {
         });
 
         try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+            Parent fxml = FXMLLoader.load(getClass().getResource("Laporan.fxml"));
             contentArea.getChildren().removeAll();
             contentArea.getChildren().setAll(fxml);
         } catch (IOException e) {
@@ -123,7 +111,7 @@ public class KoperasiController implements Initializable {
         logout_btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.changeSceneAdmin(event, "login.fxml", null);
+                DBUtils.changeSceneKepala(event, "login.fxml", null);
                 Stage stage = (Stage) logout_btn.getScene().getWindow();
                 stage.close();
             }
@@ -134,7 +122,6 @@ public class KoperasiController implements Initializable {
         Stage stage = (Stage) closeBtn.getScene().getWindow();
         stage.close();
     }
-
 
     public void showMenu(ActionEvent event) {
         pane1.setVisible(true);
@@ -149,24 +136,8 @@ public class KoperasiController implements Initializable {
         translateTransition1.play();
     }
 
-    public void dashboardPane(ActionEvent event) throws Exception{
-        changeStackPane("Dashboard.fxml");
-    }
-
-    public void dataBarangPane(ActionEvent event) throws Exception{
-        changeStackPane("DataBarang.fxml");
-    }
-
-    public void transaksiPane(ActionEvent event) throws Exception{
-        changeStackPane("Transaksi.fxml");
-    }
-
     public void laporanPane(ActionEvent event) throws Exception{
-        changeStackPane("Laporan.fxml");
-    }
-
-    public void changeStackPane(String fxmlFile) throws IOException {
-        Parent fxml = FXMLLoader.load(KoperasiController.class.getResource(fxmlFile));
+        Parent fxml = FXMLLoader.load(getClass().getResource("Laporan.fxml"));
         contentArea.getChildren().removeAll();
         contentArea.getChildren().setAll(fxml);
     }

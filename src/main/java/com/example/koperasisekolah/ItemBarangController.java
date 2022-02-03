@@ -2,11 +2,15 @@ package com.example.koperasisekolah;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ItemBarangController implements Initializable {
@@ -15,7 +19,15 @@ public class ItemBarangController implements Initializable {
     private ImageView delete;
 
     @FXML
+    private Label idLabel, namaBarangLabel, hargaLabel, kulakLabel, tanggalLabel, stokLabel;
+
+    @FXML
     private ImageView edit;
+
+    @FXML
+    private Button deleteBtn;
+
+    PreparedStatement preparedStatement;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -27,4 +39,39 @@ public class ItemBarangController implements Initializable {
         Image deleteImage = new Image(deleteFile.toURI().toString());
         delete.setImage(deleteImage);
     }
+
+    public void setDataBarang(int id, String namaBarang, int stok, int harga, int kulak, String tanggal){
+        idLabel.setText(String.valueOf(id));
+        namaBarangLabel.setText(namaBarang);
+        stokLabel.setText(String.valueOf(stok));
+        hargaLabel.setText(String.valueOf(harga));
+        kulakLabel.setText(String.valueOf(kulak));
+        tanggalLabel.setText(tanggal);
+
+        deleteBtn.setOnMouseClicked(event -> {
+            String idBarang = String.valueOf(id);
+
+            try {
+                preparedStatement = DBUtils.getConnect().prepareStatement("DELETE FROM databarang WHERE id= ?");
+                preparedStatement.setString(1, idBarang);
+                preparedStatement.execute();
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        });
+    }
+
+//    public void deleteOnAction(int id){
+//        String idBarang = String.valueOf(id);
+//        try {
+//            preparedStatement = DBUtils.getConnect().prepareStatement("DELETE FROM databarang WHERE id= ?");
+//            preparedStatement.setString(1, idBarang);
+//            preparedStatement.execute();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

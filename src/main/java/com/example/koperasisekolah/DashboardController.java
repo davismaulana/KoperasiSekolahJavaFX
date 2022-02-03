@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -24,8 +25,10 @@ public class DashboardController implements Initializable {
     private LineChart lineChart;
 
     @FXML
-    private PieChart pieChart;
+    private Label dashboard;
 
+    @FXML
+    private PieChart pieChart;
 
 
     @Override
@@ -80,7 +83,23 @@ public class DashboardController implements Initializable {
         );
 
         pieChart.setData(pieData);
-
     }
+//    private void dateNow(){
+//        Thread thread = new Thread(()->{
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DD MMMM YYYY");
+//            while (!stop){
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (Exception e) {
+//                    System.out.println(e);
+//                }
+//                final String timenow = simpleDateFormat.format(new Date());
+//                Platform.runLater(()->{
+//                    dashboard.setText(timenow);
+//                });
+//            }
+//        });
+//        thread.start();
+//    }
 
 }
