@@ -58,7 +58,7 @@
             <Insets />
          </HBox.margin>
       </Label>
-      <Button mnemonicParsing="false" prefWidth="21.0" style="-fx-background-color: white; -fx-border-color: #00ff2b;" textFill="#00ff2b">
+      <Button fx:id="editBtn" mnemonicParsing="false" prefWidth="21.0" style="-fx-background-color: white; -fx-border-color: #00ff2b;" textFill="#00ff2b">
          <HBox.margin>
             <Insets />
          </HBox.margin>
