@@ -37,6 +37,7 @@ public class UpdateBarangController implements Initializable {
     @FXML
     private Button tutupBtn, simpan;
 
+
     PreparedStatement preparedStatement;
 
 

@@ -2,6 +2,8 @@ package com.example.koperasisekolah;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -12,7 +14,19 @@ import java.util.ResourceBundle;
 public class ItemDataTransaksiController implements Initializable {
 
     @FXML
-    private ImageView hapusImg;
+    public ImageView hapusImg;
+
+    @FXML
+    private Label hargaLabel;
+
+    @FXML
+    private Label jumlahLabel;
+
+    @FXML
+    private Label namaBarangLabel;
+
+    @FXML
+    public Button hapusBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -20,5 +34,11 @@ public class ItemDataTransaksiController implements Initializable {
         File imgHapusFile = new File("image/icons8-close-96.png");
         Image hapusImage = new Image(imgHapusFile.toURI().toString());
         hapusImg.setImage(hapusImage);
+    }
+
+    public void setDataTransaksi(String namaBarang, int jumlah, int harga){
+        namaBarangLabel.setText(namaBarang);
+        jumlahLabel.setText(String.valueOf(jumlah));
+        hargaLabel.setText(String.valueOf(harga));
     }
 }

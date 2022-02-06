@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,7 +28,7 @@ public class DataBarangController implements Initializable {
     public VBox panelBarang = null;
 
     @FXML
-    private ImageView tambahLogo, background, refreshLogo;
+    private ImageView tambahLogo, background;
 
     @FXML
     private TextField hargaField, jumlahField, kulakField, namaBarangField;
@@ -36,7 +37,10 @@ public class DataBarangController implements Initializable {
     private AnchorPane formPane;
 
     @FXML
-    private Button simpanBtn, tutupBtn, tambahBarang, refresh;
+    private Button simpanBtn, tutupBtn, tambahBarang;
+
+    @FXML
+    private Label judulLabel;
 
 
     PreparedStatement preparedStatement;
@@ -53,15 +57,12 @@ public class DataBarangController implements Initializable {
         Image backgroundImage = new Image(backgroundFile.toURI().toString());
         background.setImage(backgroundImage);
 
-        File refreshFile = new File("image/icons8-available-updates-96.png");
-        Image refreshImage = new Image(refreshFile.toURI().toString());
-        refreshLogo.setImage(refreshImage);
-
         showData();
 
         formPane.setVisible(false);
 
         simpanBtn.setOnMouseClicked(event -> {
+
             String namaBarang = namaBarangField.getText();
             int jumlah = Integer.parseInt(jumlahField.getText());
             int harga = Integer.parseInt(hargaField.getText());
@@ -69,6 +70,17 @@ public class DataBarangController implements Initializable {
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
             String tanggal = formatter.format(now);
+
+
+            int totalBarang = jumlah;
+            int totalKulak = jumlah;
+            int totalTerjual = 0;
+            int totalKeuntungan = 0;
+            int totalPendapatan = 0;
+            int totalPengeluaran = jumlah * hargaKulak;
+            LocalDateTime now1 = LocalDateTime.now();
+            DateTimeFormatter bulanformatter = DateTimeFormatter.ofPattern("MMMM");
+            String bulan = bulanformatter.format(now1);
 
             PreparedStatement preparedStatement = null;
             try {
@@ -78,7 +90,19 @@ public class DataBarangController implements Initializable {
                 preparedStatement.setInt(3,harga);
                 preparedStatement.setInt(4,hargaKulak);
                 preparedStatement.setString(5,tanggal);
-                preparedStatement.executeUpdate();
+                preparedStatement.execute();
+
+                preparedStatement = DBUtils.getConnect().prepareStatement("INSERT INTO information(namaBarang, totalBarang, totalKulak, totalTerjual, totalPengeluaran, totalPendapatan, totalKeuntungan, tanggal, bulan) VALUES(?,?,?,?,?,?,?,?,?)");
+                preparedStatement.setString(1,namaBarang);
+                preparedStatement.setInt(2,totalBarang);
+                preparedStatement.setInt(3, totalKulak);
+                preparedStatement.setInt(4,totalTerjual);
+                preparedStatement.setInt(5,totalPengeluaran);
+                preparedStatement.setInt(6,totalPendapatan);
+                preparedStatement.setInt(7,totalKeuntungan);
+                preparedStatement.setString(8,tanggal);
+                preparedStatement.setString(9,bulan);
+                preparedStatement.execute();
 
                 panelBarang.getChildren().clear();
 
@@ -98,32 +122,106 @@ public class DataBarangController implements Initializable {
 
         tambahBarang.setOnMouseClicked(event -> {
             formPane.setVisible(true);
+            judulLabel.setText("Tambah Data Barang");
         });
 
         tutupBtn.setOnMouseClicked(event -> {
             formPane.setVisible(false);
         });
 
-        refresh.setOnMouseClicked(event -> {
-            panelBarang.getChildren().clear();
-            showData();
-        });
-
     }
 
-    public void showData(){
+    public void showData() {
         Parent root = null;
         try {
             preparedStatement = DBUtils.getConnect().prepareStatement("SELECT * FROM databarang");
             resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource("ItemBarang.fxml"));
                 root = (Parent) loader.load();
                 ItemBarangController itemBarangController = loader.getController();
                 itemBarangController.setDataBarang(resultSet.getInt("id"), resultSet.getString("namaBarang"), resultSet.getInt("stok"), resultSet.getInt("harga"), resultSet.getInt("kulak"), resultSet.getString("tanggal"));
                 panelBarang.getChildren().add(root);
 
+                String idBarang = String.valueOf(resultSet.getInt("id"));
+                String namaBarangData = resultSet.getString("namaBarang");
+                String stokData = String.valueOf(resultSet.getInt("stok"));
+                String hargaData = String.valueOf(resultSet.getInt("harga"));
+                String hargaKulakData = String.valueOf(resultSet.getInt("kulak"));
+
+                itemBarangController.deleteBtn.setOnMouseClicked(event -> {
+                    try {
+                        preparedStatement = DBUtils.getConnect().prepareStatement("DELETE FROM databarang WHERE id= ?");
+                        preparedStatement.setString(1, idBarang);
+                        preparedStatement.execute();
+
+                        preparedStatement = DBUtils.getConnect().prepareStatement("DELETE FROM information WHERE namaBarang= ?");
+                        preparedStatement.setString(1, namaBarangData);
+                        preparedStatement.execute();
+
+                        panelBarang.getChildren().clear();
+                        showData();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                itemBarangController.editBtn.setOnMouseClicked(event -> {
+                    formPane.setVisible(true);
+                    judulLabel.setText("Ubah Data Barang");
+                    namaBarangField.setText(namaBarangData);
+                    jumlahField.setText(stokData);
+                    hargaField.setText(hargaData);
+                    kulakField.setText(hargaKulakData);
+
+                    simpanBtn.setOnMouseClicked(event1 -> {
+                        String namaBarang = namaBarangField.getText();
+                        int jumlah = Integer.parseInt(jumlahField.getText());
+                        int harga = Integer.parseInt(hargaField.getText());
+                        int hargaKulak = Integer.parseInt(kulakField.getText());
+                        LocalDateTime now = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+                        String tanggal = formatter.format(now);
+
+                        LocalDateTime now1 = LocalDateTime.now();
+                        DateTimeFormatter bulanformatter = DateTimeFormatter.ofPattern("MMMM");
+                        String bulan = bulanformatter.format(now1);
+
+                        try {
+                            preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE databarang SET namaBarang= ?, stok= ?, harga= ?, kulak= ?, tanggal= ? WHERE id= ?");
+                            preparedStatement.setString(1, namaBarang);
+                            preparedStatement.setInt(2, jumlah);
+                            preparedStatement.setInt(3, harga);
+                            preparedStatement.setInt(4, hargaKulak);
+                            preparedStatement.setString(5, tanggal);
+                            preparedStatement.setInt(6, Integer.parseInt(idBarang));
+                            preparedStatement.executeUpdate();
+
+                            preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE information SET namaBarang= ?, totalBarang= ?, totalKulak= ?, totalTerjual= ?, totalPengeluaran= ?, totalPendapatan= ?, totalKeuntungan= ?, tanggal= ?, bulan= ? WHERE namaBarang= ?");
+                            preparedStatement.setString(1, namaBarang);
+                            preparedStatement.setInt(2, jumlah);
+                            preparedStatement.setInt(3, jumlah);
+                            preparedStatement.setInt(4, 0);
+                            preparedStatement.setInt(5, jumlah * hargaKulak);
+                            preparedStatement.setInt(6, 0);
+                            preparedStatement.setInt(7, 0);
+                            preparedStatement.setString(8, tanggal);
+                            preparedStatement.setString(9, bulan);
+                            preparedStatement.setString(10, namaBarang);
+                            preparedStatement.executeUpdate();
+
+                            panelBarang.getChildren().clear();
+                            showData();
+
+                            formPane.setVisible(false);
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                });
             }
 
 
@@ -132,7 +230,6 @@ public class DataBarangController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
-
-
 }

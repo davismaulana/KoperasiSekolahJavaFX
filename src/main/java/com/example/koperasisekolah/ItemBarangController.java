@@ -1,22 +1,15 @@
 package com.example.koperasisekolah;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ItemBarangController implements Initializable {
@@ -31,7 +24,7 @@ public class ItemBarangController implements Initializable {
     private ImageView edit;
 
     @FXML
-    private Button deleteBtn, editBtn;
+    public Button deleteBtn, editBtn;
 
     PreparedStatement preparedStatement;
 
@@ -54,55 +47,27 @@ public class ItemBarangController implements Initializable {
         kulakLabel.setText(String.valueOf(kulak));
         tanggalLabel.setText(tanggal);
 
-        deleteBtn.setOnMouseClicked(event -> {
-            String idBarang = String.valueOf(id);
-
-            try {
-                preparedStatement = DBUtils.getConnect().prepareStatement("DELETE FROM databarang WHERE id= ?");
-                preparedStatement.setString(1, idBarang);
-                preparedStatement.execute();
-
-                FXMLLoader fxmlLoader = new FXMLLoader(DBUtils.class.getResource("alert.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setResizable(false);
-                stage.initStyle(StageStyle.UNDECORATED);
-                stage.requestFocus();
-                stage.show();
-
-                AlertController alertController = fxmlLoader.getController();
-                alertController.judul.setText("Data berhasil dihapus");
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
-
-        editBtn.setOnMouseClicked(event -> {
-            Parent root = null;
-
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(DBUtils.class.getResource("FormUpdateBarang.fxml"));
-                root = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setResizable(false);
-                stage.initStyle(StageStyle.UNDECORATED);
-                stage.requestFocus();
-                stage.show();
-                UpdateBarangController updateBarangController = fxmlLoader.getController();
-                updateBarangController.prepareData(id, namaBarang, stok, harga, kulak);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
-    }
+//        editBtn.setOnMouseClicked(event -> {
+//            Parent root = null;
+//
+//            try {
+//                FXMLLoader fxmlLoader = new FXMLLoader(DBUtils.class.getResource("FormUpdateBarang.fxml"));
+//                root = (Parent) fxmlLoader.load();
+//                Stage stage = new Stage();
+//                stage.setScene(new Scene(root));
+//                stage.setResizable(false);
+//                stage.initStyle(StageStyle.UNDECORATED);
+//                stage.requestFocus();
+//                stage.show();
+//                UpdateBarangController updateBarangController = fxmlLoader.getController();
+//                updateBarangController.prepareData(id, namaBarang, stok, harga, kulak);
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//        });
+//    }
 
 //    public void deleteOnAction(int id){
 //        String idBarang = String.valueOf(id);
@@ -113,5 +78,5 @@ public class ItemBarangController implements Initializable {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-//    }
+    }
 }
