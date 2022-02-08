@@ -26,6 +26,9 @@ public class ItemDataTransaksiController implements Initializable {
     private Label namaBarangLabel;
 
     @FXML
+    private Label totalLabel;
+
+    @FXML
     public Button hapusBtn;
 
     @Override
@@ -36,9 +39,10 @@ public class ItemDataTransaksiController implements Initializable {
         hapusImg.setImage(hapusImage);
     }
 
-    public void setDataTransaksi(String namaBarang, int jumlah, int harga){
+    public void setDataTransaksi(String namaBarang, int jumlah, int harga, int total){
         namaBarangLabel.setText(namaBarang);
         jumlahLabel.setText(String.valueOf(jumlah));
         hargaLabel.setText(String.valueOf(harga));
+        totalLabel.setText(String.valueOf(total));
     }
 }

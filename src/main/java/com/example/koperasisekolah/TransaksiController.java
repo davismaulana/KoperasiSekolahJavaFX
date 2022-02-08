@@ -4,15 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,13 +36,15 @@ public class TransaksiController implements Initializable {
     private TextField searchField, jumlahField, bayarField, totalHargaField;
 
     @FXML
-    public Label stokLabel;
+    public Label stokLabel, alertBayarLabel, kembalianLabel, alertStokLabel;
 
 
     PreparedStatement preparedStatement;
     ResultSet resultSetBarang;
     ResultSet resultSetInformation;
     ResultSet resultSetTransaksi;
+    ResultSet resultSetSum;
+    ResultSet resultSetHapus;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,17 +64,21 @@ public class TransaksiController implements Initializable {
         searchBtn.setOnMouseClicked(event -> {
             panelTransaksi.getChildren().clear();
             String searchKey =  searchField.getText();
+            jumlahField.setText("");
+            stokLabel.setText("");
 
             try {
                 preparedStatement = DBUtils.getConnect().prepareStatement("SELECT * FROM databarang WHERE namaBarang LIKE ?");
                 preparedStatement.setString(1, "%" + searchKey + "%");
                 resultSetBarang = preparedStatement.executeQuery();
 
-                preparedStatement = DBUtils.getConnect().prepareStatement("SELECT * FROM information WHERE namaBarang LIKE ?");
-                preparedStatement.setString(1, "%" + searchKey + "%");
-                resultSetInformation = preparedStatement.executeQuery();
-
                 while (resultSetBarang.next()){
+
+                    String namaBarang = resultSetBarang.getString("namaBarang");
+                    int harga = resultSetBarang.getInt("harga");
+                    int kulak = resultSetBarang.getInt("kulak");
+                    int jumlahKulak = resultSetBarang.getInt("stok");
+
                     LocalDateTime now = LocalDateTime.now();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
                     String tanggal = formatter.format(now);
@@ -83,11 +86,6 @@ public class TransaksiController implements Initializable {
                     LocalDateTime now1 = LocalDateTime.now();
                     DateTimeFormatter bulanformatter = DateTimeFormatter.ofPattern("MMMM");
                     String bulan = bulanformatter.format(now1);
-
-                    String namaBarang = resultSetBarang.getString("namaBarang");
-                    int harga = resultSetBarang.getInt("harga");
-                    int kulak = resultSetBarang.getInt("kulak");
-                    int jumlahKulak = resultSetBarang.getInt("stok");
 
                     FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource("ItemTransaksi.fxml"));
                     Parent root = (Parent) loader.load();
@@ -115,65 +113,61 @@ public class TransaksiController implements Initializable {
                                 int jumlahKeuntungan = jumlah * kulak;
                                 int keuntungan = pendapatan - jumlahKeuntungan;
 
+                                totalHargaField.setText("");
+                                bayarField.setText("");
+                                kembalianLabel.setText("");
+
                                 try {
-                                    while (resultSetInformation.next()){
+                                    preparedStatement = DBUtils.getConnect().prepareStatement("SELECT * FROM information WHERE namaBarang=?");
+                                    preparedStatement.setString(1, namaBarang);
+                                    resultSetInformation = preparedStatement.executeQuery();
 
-                                        int totalTerjual = resultSetInformation.getInt("totalTerjual");
-                                        int totalPendapatan = resultSetInformation.getInt("totalPendapatan");
-                                        int totalKeuntungan = resultSetInformation.getInt("totalKeuntungan");
+                                    resultSetInformation.next();
 
-                                        if (jumlahKulak >= jumlah){
-                                            preparedStatement = DBUtils.getConnect().prepareStatement("INSERT INTO preparetransaksi(namaBarang, jumlah, harga) VALUES (?,?,?)");
-                                            preparedStatement.setString(1, namaBarang);
-                                            preparedStatement.setInt(2, jumlah);
-                                            preparedStatement.setInt(3, harga);
-                                            preparedStatement.execute();
+                                    int totalTerjual = resultSetInformation.getInt("totalTerjual");
+                                    int totalPendapatan = resultSetInformation.getInt("totalPendapatan");
+                                    int totalKeuntungan = resultSetInformation.getInt("totalKeuntungan");
 
-                                            preparedStatement = DBUtils.getConnect().prepareStatement("INSERT INTO laporan(tanggal, namaBarang, kulak, harga, jumlahKulak, terjual) VALUES (?,?,?,?,?,?)");
-                                            preparedStatement.setString(1, tanggal);
-                                            preparedStatement.setString(2, namaBarang);
-                                            preparedStatement.setInt(3, kulak);
-                                            preparedStatement.setInt(4, harga);
-                                            preparedStatement.setInt(5, jumlahKulak);
-                                            preparedStatement.setInt(6, jumlah);
-                                            preparedStatement.execute();
+                                    if (jumlahKulak >= jumlah){
 
-                                            preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE dataBarang SET stok=? WHERE id=?");
-                                            preparedStatement.setInt(1, jumlahKulak - jumlah);
-                                            preparedStatement.setInt(2, idBarang);
-                                            preparedStatement.executeUpdate();
+                                        preparedStatement = DBUtils.getConnect().prepareStatement("INSERT INTO preparetransaksi(namaBarang, jumlah, harga, kulak, total) VALUES (?,?,?,?,?)");
+                                        preparedStatement.setString(1, namaBarang);
+                                        preparedStatement.setInt(2, jumlah);
+                                        preparedStatement.setInt(3, harga);
+                                        preparedStatement.setInt(4, kulak);
+                                        preparedStatement.setInt(5, jumlah * harga);
+                                        preparedStatement.execute();
 
-                                            preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE information SET totalBarang=?, totalTerjual=?, totalPendapatan=?, totalKeuntungan=?, tanggal=?, bulan=? WHERE namaBarang=?");
-                                            preparedStatement.setInt(1, jumlahKulak - jumlah);
-                                            preparedStatement.setInt(2, totalTerjual + jumlah);
-                                            preparedStatement.setInt(3, totalPendapatan + pendapatan);
-                                            preparedStatement.setInt(4, totalKeuntungan + keuntungan);
-                                            preparedStatement.setString(5, tanggal);
-                                            preparedStatement.setString(6, bulan);
-                                            preparedStatement.setString(7, namaBarang);
-                                            preparedStatement.executeUpdate();
+                                        preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE databarang SET stok=? WHERE id=?");
+                                        preparedStatement.setInt(1, jumlahKulak - jumlah);
+                                        preparedStatement.setInt(2, idBarang);
+                                        preparedStatement.executeUpdate();
 
-                                            panelDataTransaksi.getChildren().clear();
-                                            showDataTransaksi();
+                                        preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE information SET totalBarang=?, totalTerjual=?, totalPendapatan=?, totalKeuntungan=?, tanggal=?, bulan=? WHERE namaBarang=?");
+                                        preparedStatement.setInt(1, jumlahKulak - jumlah);
+                                        preparedStatement.setInt(2, totalTerjual + jumlah);
+                                        preparedStatement.setInt(3, totalPendapatan + pendapatan);
+                                        preparedStatement.setInt(4, totalKeuntungan + keuntungan);
+                                        preparedStatement.setString(5, tanggal);
+                                        preparedStatement.setString(6, bulan);
+                                        preparedStatement.setString(7, namaBarang);
+                                        preparedStatement.executeUpdate();
 
-                                        }else {
-                                            FXMLLoader fxmlLoader = new FXMLLoader(DBUtils.class.getResource("alert.fxml"));
-                                            Parent root2 = (Parent) fxmlLoader.load();
-                                            Stage stage = new Stage();
-                                            stage.setScene(new Scene(root2));
-                                            stage.setResizable(false);
-                                            stage.initStyle(StageStyle.UNDECORATED);
-                                            stage.requestFocus();
-                                            stage.show();
-                                        }
+                                        preparedStatement = DBUtils.getConnect().prepareStatement("SELECT SUM(total) AS totalharga FROM preparetransaksi");
+                                        resultSetSum = preparedStatement.executeQuery();
+
+                                        resultSetSum.next();
+                                        totalHargaField.setText(String.valueOf(resultSetSum.getInt("totalharga")));
+
+                                        panelDataTransaksi.getChildren().clear();
+                                        showDataTransaksi();
+
+                                    }else {
+                                        alertStokLabel.setText("Jumlah stok tidak cukup");
                                     }
                                 }catch (SQLException e) {
                                     e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
                                 }
-
-//
                             });
 
                         } catch (IOException e) {
@@ -192,6 +186,26 @@ public class TransaksiController implements Initializable {
 
     }
 
+
+//    public void totalBayar(){
+//
+//        try {
+//            preparedStatement = DBUtils.getConnect().prepareStatement("SELECT * FROM preparetransaksi");
+//            resultSetAll = preparedStatement.executeQuery();
+//
+//            while (resultSetAll.next()){
+//                while (resultSetSum.next()){
+//                    int harga = resultSetAll.getInt("harga");
+//                    int total = resultSetSum.getInt("totalharga");
+//                    totalHargaField.setText(String.valueOf(total));
+//                }
+//
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     public void showDataTransaksi(){
         try {
             preparedStatement = DBUtils.getConnect().prepareStatement("SELECT * FROM preparetransaksi");
@@ -201,23 +215,65 @@ public class TransaksiController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource("ItemDataTransaksi.fxml"));
                 Parent root = (Parent) loader.load();
                 ItemDataTransaksiController itemDataTransaksiController = loader.getController();
-                itemDataTransaksiController.setDataTransaksi(resultSetTransaksi.getString("namaBarang"), resultSetTransaksi.getInt("jumlah"), resultSetTransaksi.getInt("harga"));
+                itemDataTransaksiController.setDataTransaksi(resultSetTransaksi.getString("namaBarang"), resultSetTransaksi.getInt("jumlah"), resultSetTransaksi.getInt("harga"), resultSetTransaksi.getInt("total"));
                 panelDataTransaksi.getChildren().add(root);
+
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+                String tanggal = formatter.format(now);
+
+                LocalDateTime now1 = LocalDateTime.now();
+                DateTimeFormatter bulanformatter = DateTimeFormatter.ofPattern("MMMM");
+                String bulan = bulanformatter.format(now1);
 
                 int harga = resultSetTransaksi.getInt("harga");
                 int idBarang = resultSetTransaksi.getInt("id");
+                String namaBarang = resultSetTransaksi.getString("namaBarang");
+                int kulak = resultSetTransaksi.getInt("kulak");
+                int jumlah = resultSetTransaksi.getInt("jumlah");
+                int pendapatan = jumlah * harga;
+                int jumlahKeuntungan = jumlah * kulak;
+                int keuntungan = pendapatan - jumlahKeuntungan;
 
                 itemDataTransaksiController.hapusBtn.setOnMouseClicked(event -> {
+
                     try {
+                        preparedStatement = DBUtils.getConnect().prepareStatement("SELECT * FROM information WHERE namaBarang=?");
+                        preparedStatement.setString(1, namaBarang);
+                        resultSetInformation = preparedStatement.executeQuery();
+                        resultSetInformation.next();
+
+                        int totalBarang = resultSetInformation.getInt("totalBarang");
+
+
+                        int totalTerjual = resultSetInformation.getInt("totalTerjual");
+                        int totalPendapatan = resultSetInformation.getInt("totalPendapatan");
+                        int totalKeuntungan = resultSetInformation.getInt("totalKeuntungan");
+
                         preparedStatement = DBUtils.getConnect().prepareStatement("DELETE FROM preparetransaksi WHERE id= ?");
                         preparedStatement.setInt(1, idBarang);
                         preparedStatement.execute();
 
-                        preparedStatement = DBUtils.getConnect().prepareStatement("DELETE FROM laporan WHERE id= ?");
-                        preparedStatement.setInt(1, idBarang);
-                        preparedStatement.execute();
+                        preparedStatement = DBUtils.getConnect().prepareStatement("SELECT SUM(total) AS totalharga FROM preparetransaksi");
+                        resultSetSum = preparedStatement.executeQuery();
+                        resultSetSum.next();
+                        totalHargaField.setText(String.valueOf(resultSetSum.getInt("totalharga")));
 
 
+                        preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE databarang SET stok=? WHERE namaBarang=?");
+                        preparedStatement.setInt(1, totalBarang + jumlah);
+                        preparedStatement.setString(2, namaBarang);
+                        preparedStatement.executeUpdate();
+
+                        preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE information SET totalBarang=?, totalTerjual=?, totalPendapatan=?, totalKeuntungan=?, tanggal=?, bulan=? WHERE namaBarang=?");
+                        preparedStatement.setInt(1, totalBarang + jumlah);
+                        preparedStatement.setInt(2, totalTerjual - jumlah);
+                        preparedStatement.setInt(3, totalPendapatan - pendapatan);
+                        preparedStatement.setInt(4, totalKeuntungan - keuntungan);
+                        preparedStatement.setString(5, tanggal);
+                        preparedStatement.setString(6, bulan);
+                        preparedStatement.setString(7, namaBarang);
+                        preparedStatement.executeUpdate();
 
                         panelDataTransaksi.getChildren().clear();
                         showDataTransaksi();
@@ -228,12 +284,50 @@ public class TransaksiController implements Initializable {
 
                 });
 
-                int totalHarga = harga + harga;
+                bayarBtn.setOnMouseClicked(event2 -> {
 
-                totalHargaField.setText(String.valueOf(totalHarga));
+                    try {
+                        preparedStatement = DBUtils.getConnect().prepareStatement("SELECT SUM(total) AS totalharga FROM preparetransaksi");
+                        resultSetSum = preparedStatement.executeQuery();
+
+                        resultSetSum.next();
+
+                        int totalHarga = resultSetSum.getInt("totalharga");
+                        int bayar = Integer.parseInt(bayarField.getText());
+
+                        if (totalHarga > bayar){
+                            alertBayarLabel.setText("");
+                            alertBayarLabel.setText("Pembayaran tidak cukup");
+                        }else{
+                            alertBayarLabel.setText("");
+                            int kembalian = bayar - totalHarga;
+
+                            kembalianLabel.setText(String.valueOf(kembalian));
+
+                            preparedStatement = DBUtils.getConnect().prepareStatement("TRUNCATE TABLE preparetransaksi");
+                            preparedStatement.execute();
+
+                        }
+                    }catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                refreshBtn.setOnMouseClicked(event -> {
+
+                    totalHargaField.setText("");
+                    kembalianLabel.setText("");
+                    bayarField.setText("");
+                    jumlahField.setText("");
+                    stokLabel.setText("");
+                    panelDataTransaksi.getChildren().clear();
+                    panelTransaksi.getChildren().clear();
+
+                });
 
             }
-            
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {

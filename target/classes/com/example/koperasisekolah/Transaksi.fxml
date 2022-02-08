@@ -67,27 +67,32 @@
       </Label>
       <HBox alignment="CENTER_LEFT" layoutX="608.0" layoutY="102.0" prefHeight="45.0" prefWidth="565.0" spacing="10.0" style="-fx-background-color: #f05454; -fx-background-radius: 10;">
          <children>
-            <Label prefHeight="35.0" prefWidth="196.0" text="Nama Barang" textFill="WHITE">
+            <Label prefHeight="35.0" prefWidth="140.0" text="Nama Barang" textFill="WHITE">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="114.0" layoutY="18.0" prefHeight="30.0" prefWidth="95.0" text="Jumlah" textFill="WHITE">
+            <Label layoutX="114.0" layoutY="18.0" prefHeight="30.0" prefWidth="59.0" text="Jumlah" textFill="WHITE">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="20.0" layoutY="19.0" prefHeight="30.0" prefWidth="145.0" text="Harga" textFill="WHITE">
+            <Label layoutX="20.0" layoutY="19.0" prefHeight="30.0" prefWidth="120.0" text="Harga" textFill="WHITE">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="309.0" layoutY="18.0" prefHeight="30.0" prefWidth="120.0" text="Total" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
                </font>
             </Label>
             <Label layoutX="168.0" layoutY="18.0" text="Hapus" textFill="WHITE">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
          </children>
@@ -123,7 +128,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="721.0" layoutY="530.0" prefHeight="27.0" prefWidth="78.0" text="00" textFill="#f05454">
+      <Label fx:id="kembalianLabel" layoutX="721.0" layoutY="530.0" prefHeight="27.0" prefWidth="344.0" text="00" textFill="#f05454">
          <font>
             <Font size="18.0" />
          </font>
@@ -160,6 +165,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
+            <Label fx:id="alertStokLabel" layoutX="84.0" layoutY="89.0" prefHeight="17.0" prefWidth="310.0" textFill="RED" />
          </children>
       </AnchorPane>
       <JFXButton fx:id="bayarBtn" layoutX="1083.0" layoutY="428.0" prefHeight="78.0" prefWidth="78.0" style="-fx-background-color: #f05454;" text="Bayar" textFill="WHITE">
@@ -176,5 +182,6 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label fx:id="alertBayarLabel" layoutX="728.0" layoutY="506.0" prefHeight="17.0" prefWidth="302.0" textFill="RED" />
    </children>
 </AnchorPane>
