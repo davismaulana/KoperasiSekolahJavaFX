@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="342.0" style="-fx-border-color: #F05454;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.koperasisekolah.UpdateBarangController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Ubah Data barang" textFill="#f05454">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Separator layoutX="14.0" layoutY="41.0" prefHeight="21.0" prefWidth="317.0" />
+      <Label layoutX="14.0" layoutY="83.0" text="Nama Barang">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="123.0" text="Harga">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="164.0" text="Harga Kulak">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="207.0" text="Jumlah">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Separator layoutX="14.0" layoutY="247.0" prefHeight="21.0" prefWidth="317.0" />
+      <TextField fx:id="namaBarangField" layoutX="115.0" layoutY="80.0" prefHeight="25.0" prefWidth="213.0" promptText="Nama Barang" />
+      <TextField fx:id="jumlahField" layoutX="115.0" layoutY="204.0" prefHeight="25.0" prefWidth="213.0" promptText="0" />
+      <TextField fx:id="hargaField" layoutX="115.0" layoutY="120.0" prefHeight="25.0" prefWidth="213.0" promptText="0" />
+      <TextField fx:id="hargaKulakField" layoutX="115.0" layoutY="161.0" prefHeight="25.0" prefWidth="213.0" promptText="0" />
+      <JFXButton fx:id="simpan" layoutX="272.0" layoutY="273.0" style="-fx-background-color: #F05454;" text="Simpan" textFill="WHITE" />
+      <JFXButton fx:id="tutupBtn" layoutX="222.0" layoutY="273.0" onAction="#tutupBtnOnAction" style="-fx-background-color: grey;" text="Tutup" textFill="WHITE" />
+   </children>
+</AnchorPane>

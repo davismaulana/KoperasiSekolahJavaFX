@@ -41,35 +41,35 @@ public class UpdateBarangController implements Initializable {
     PreparedStatement preparedStatement;
 
 
-//    public void simpanBtnOnAction (String idData){
-//
-//
-//        String namaBarang = namaBarangField.getText();
-//        int jumlah = Integer.parseInt(jumlahField.getText());
-//        int harga = Integer.parseInt(hargaField.getText());
-//        int hargaKulak = Integer.parseInt(hargaKulakField.getText());
-//        LocalDateTime now = LocalDateTime.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-//        String tanggal = formatter.format(now);
-//
-//        try {
-//            preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE databarang SET namaBarang= ?, stok= ?, harga= ?, kulak= ?, tanggal= ? WHERE id= ?");
-//            preparedStatement.setString(1,namaBarang);
-//            preparedStatement.setInt(2, jumlah);
-//            preparedStatement.setInt(3,harga);
-//            preparedStatement.setInt(4,hargaKulak);
-//            preparedStatement.setString(5,tanggal);
-//            preparedStatement.setString(6,idData);
-//            preparedStatement.executeUpdate();
-//
-//            Stage stage = (Stage) tutupBtn.getScene().getWindow();
-//            stage.close();
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+    public void simpanBtnOnAction (String idData){
+
+
+        String namaBarang = namaBarangField.getText();
+        int jumlah = Integer.parseInt(jumlahField.getText());
+        int harga = Integer.parseInt(hargaField.getText());
+        int hargaKulak = Integer.parseInt(hargaKulakField.getText());
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+        String tanggal = formatter.format(now);
+
+        try {
+            preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE databarang SET namaBarang= ?, stok= ?, harga= ?, kulak= ?, tanggal= ? WHERE id= ?");
+            preparedStatement.setString(1,namaBarang);
+            preparedStatement.setInt(2, jumlah);
+            preparedStatement.setInt(3,harga);
+            preparedStatement.setInt(4,hargaKulak);
+            preparedStatement.setString(5,tanggal);
+            preparedStatement.setString(6,idData);
+            preparedStatement.executeUpdate();
+
+            Stage stage = (Stage) tutupBtn.getScene().getWindow();
+            stage.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 

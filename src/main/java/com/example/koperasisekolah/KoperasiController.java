@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -30,13 +32,13 @@ public class KoperasiController implements Initializable {
     private ImageView menu, dashboard, dataBarang, logout, transaksi, close, laporan;
 
     @FXML
-    private AnchorPane pane1, pane2;
+    private AnchorPane pane1, pane2, dropdownPane;
 
     @FXML
     private StackPane contentArea;
 
     @FXML
-    private Button logout_btn, closeBtn;
+    private Button logout_btn, closeBtn, laporanBtn;
 
     @FXML
     private Label usernameLabel;
@@ -73,6 +75,7 @@ public class KoperasiController implements Initializable {
         logout.setImage(logoutImage);
 
         pane1.setVisible(false);
+        dropdownPane.setVisible(false);
 
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), pane1);
         fadeTransition.setFromValue(1);
@@ -105,11 +108,20 @@ public class KoperasiController implements Initializable {
 
             fadeTransition1.setOnFinished(event1 -> {
                 pane1.setVisible(false);
+                dropdownPane.setVisible(false);
             });
 
             TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5),pane2);
             translateTransition1.setByX(-600);
             translateTransition1.play();
+        });
+
+        pane2.setOnMouseClicked(event -> {
+            dropdownPane.setVisible(false);
+        });
+
+        laporanBtn.setOnMouseClicked(event -> {
+            dropdownPane.setVisible(true);
         });
 
         try {
@@ -123,9 +135,20 @@ public class KoperasiController implements Initializable {
         logout_btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.changeSceneAdmin(event, "login.fxml", null);
                 Stage stage = (Stage) logout_btn.getScene().getWindow();
                 stage.close();
+
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(KoperasiSekolahApplication.class.getResource("login.fxml"));
+                    Scene scene = null;
+                    scene = new Scene(fxmlLoader.load(), 520, 400);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.setScene(scene);
+                    stage.centerOnScreen();
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -153,16 +176,46 @@ public class KoperasiController implements Initializable {
         changeStackPane("Dashboard.fxml");
     }
 
+    public void barangMasukPane() throws IOException {
+        FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), pane1);
+        fadeTransition1.setFromValue(1);
+        fadeTransition1.setToValue(0.15);
+        fadeTransition1.play();
+
+        fadeTransition1.setOnFinished(event1 -> {
+            pane1.setVisible(false);
+            dropdownPane.setVisible(false);
+        });
+
+        TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5),pane2);
+        translateTransition1.setByX(-600);
+        translateTransition1.play();
+        changeStackPane("LaporanBarangMasuk.fxml");
+    }
+
+    public void barangKeluarPane() throws IOException {
+        FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), pane1);
+        fadeTransition1.setFromValue(1);
+        fadeTransition1.setToValue(0.15);
+        fadeTransition1.play();
+
+        fadeTransition1.setOnFinished(event1 -> {
+            pane1.setVisible(false);
+            dropdownPane.setVisible(false);
+        });
+
+        TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5),pane2);
+        translateTransition1.setByX(-600);
+        translateTransition1.play();
+        changeStackPane("LaporanBarangKeluar.fxml");
+    }
+
     public void dataBarangPane(ActionEvent event) throws Exception{
         changeStackPane("DataBarang.fxml");
     }
 
     public void transaksiPane(ActionEvent event) throws Exception{
         changeStackPane("Transaksi.fxml");
-    }
-
-    public void laporanPane(ActionEvent event) throws Exception{
-        changeStackPane("Laporan.fxml");
     }
 
     public void changeStackPane(String fxmlFile) throws IOException {

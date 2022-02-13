@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="645.0" prefWidth="1227.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.koperasisekolah.LaporanMasukKepalaController">
+   <children>
+      <ImageView fx:id="background" fitHeight="645.0" fitWidth="1227.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../../../../image/background_dataBarang.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="52.0" layoutY="30.0" text="Laporan Barang Masuk">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="52.0" layoutY="118.0" prefHeight="109.0" prefWidth="272.0" style="-fx-border-color: FC9918; -fx-background-radius: 20; -fx-background-color: white; -fx-border-radius: 20;">
+         <children>
+            <Label layoutX="108.0" layoutY="64.0" text="Total Pengeluaran">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="pengeluaranLabel" alignment="CENTER_RIGHT" layoutX="87.0" layoutY="21.0" prefHeight="35.0" prefWidth="165.0" text="Rp. 1300000">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="uang" fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../image/icons8-paper-money-96.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <HBox alignment="CENTER_LEFT" layoutX="52.0" layoutY="266.0" prefHeight="43.0" prefWidth="1140.0" spacing="30.0" style="-fx-background-color: #F05454; -fx-background-radius: 10;">
+         <children>
+            <Label prefHeight="21.0" prefWidth="19.0" text="Id" textFill="#fffdfd">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="19.0" prefHeight="27.0" prefWidth="109.0" text="Tanggal" textFill="#fffdfd">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="95.0" layoutY="19.0" prefHeight="27.0" prefWidth="123.0" text="Bulan" textFill="#fffdfd">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="21.0" layoutY="19.0" prefHeight="27.0" prefWidth="167.0" text="Nama Barang" textFill="#fffdfd">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="592.0" layoutY="18.0" prefHeight="27.0" prefWidth="127.0" text="Harga" textFill="#fffdfd">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="297.0" layoutY="17.0" prefHeight="27.0" prefWidth="127.0" text="Kulak" textFill="#fffdfd">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="525.0" layoutY="17.0" prefHeight="27.0" prefWidth="107.0" text="Jumlah Kulak" textFill="#fffdfd">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <Label layoutX="896.0" layoutY="18.0" prefHeight="27.0" prefWidth="101.0" text="Pengeluaran" textFill="#fffdfd">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <ScrollPane hbarPolicy="NEVER" layoutX="52.0" layoutY="323.0" prefHeight="287.0" prefWidth="1140.0" style="-fx-border-color: white; -fx-background-color: white;">
+         <content>
+            <VBox fx:id="panelLaporan" prefHeight="282.0" prefWidth="1136.0" style="-fx-border-color: #ffff; -fx-background-color: #ffff;" />
+         </content>
+      </ScrollPane>
+      <JFXButton fx:id="cetakBtn" layoutX="1064.0" layoutY="227.0" ripplerFill="WHITE" style="-fx-border-color: #5656e2; -fx-background-color: #ffff; -fx-background-radius: 20; -fx-border-radius: 20;" text="Cetak Laporan" textFill="#5656e2">
+         <graphic>
+            <ImageView fx:id="printIcon" fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../image/icons8-print-96.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <Line endX="214.33334350585938" endY="7.62939453125E-6" layoutX="153.0" layoutY="65.0" startX="-100.0" stroke="#fc9918" strokeWidth="2.0" />
+   </children>
+</AnchorPane>

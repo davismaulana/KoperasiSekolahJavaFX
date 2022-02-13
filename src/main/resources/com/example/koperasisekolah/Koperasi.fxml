@@ -100,7 +100,7 @@
                         <Font size="20.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="154.0" onAction="#laporanPane" prefHeight="45.0" prefWidth="166.0" styleClass="sidebarItem" text="Laporan">
+                  <JFXButton fx:id="laporanBtn" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="154.0" prefHeight="45.0" prefWidth="166.0" styleClass="sidebarItem" text="Laporan">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -143,6 +143,24 @@
                         <Image url="@../../../../../../image/icons8-logout-96.png" />
                      </image>
                   </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="dropdownPane" prefHeight="106.0" prefWidth="187.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="360.0">
+         <children>
+            <VBox prefHeight="111.0" prefWidth="187.0" spacing="5.0">
+               <children>
+                  <JFXButton onAction="#barangMasukPane" prefHeight="49.0" prefWidth="187.0" text="Barang Masuk">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="10.0" layoutY="10.0" onAction="#barangKeluarPane" prefHeight="49.0" prefWidth="187.0" text="Barang Keluar">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </VBox>
          </children>

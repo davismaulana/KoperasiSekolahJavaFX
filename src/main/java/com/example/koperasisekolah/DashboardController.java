@@ -10,9 +10,15 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -25,11 +31,23 @@ public class DashboardController implements Initializable {
     private LineChart lineChart;
 
     @FXML
-    private Label dashboard;
+    private AnchorPane panelLineGrafik;
+
+    @FXML
+    private Label dashboard, totalBarangLabel, totalKulakLabel, totalTerjualLabel, keuntunganLabel, pendapatanLabel;
 
     @FXML
     private PieChart pieChart;
 
+    PreparedStatement preparedStatement;
+    ResultSet resultSetDataBarang;
+    ResultSet resultSetDataKulak;
+    ResultSet resultSetDataTerjual;
+    ResultSet resultSetPendapatan;
+    ResultSet resultSetPendapatanUpdate;
+    ResultSet resultSetKeuntunganUpdate;
+    ResultSet resultSetKeuntungan;
+    ResultSet resultSetGrafik;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -58,48 +76,120 @@ public class DashboardController implements Initializable {
         Image backgroundImage = new Image(backgroundFile.toURI().toString());
         background.setImage(backgroundImage);
 
-        XYChart.Series series = new XYChart.Series();
-        series.setName("Total pendapatan per bulan");
+        dataBarang();
+        datakeuangan();
 
-        series.getData().add(new XYChart.Data("Januari", 1000000));
-        series.getData().add(new XYChart.Data("Februari", 2300000));
-        series.getData().add(new XYChart.Data("Maret", 3000000));
-        series.getData().add(new XYChart.Data("April", 5000000));
-        series.getData().add(new XYChart.Data("Mei", 1000000));
-        series.getData().add(new XYChart.Data("Juni", 5000000));
-        series.getData().add(new XYChart.Data("Juli", 6000000));
-        series.getData().add(new XYChart.Data("Agustus", 2000000));
-        series.getData().add(new XYChart.Data("September", 3000000));
-        series.getData().add(new XYChart.Data("Oktober", 4000000));
-        series.getData().add(new XYChart.Data("November", 5000000));
-        series.getData().add(new XYChart.Data("Desember", 7000000));
-
-        lineChart.getData().add(series);
-
-        ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList(
-                new PieChart.Data("Total Barang", 40),
-                new PieChart.Data("Total Barang Kulak", 70),
-                new PieChart.Data("Total Barang Terjual", 40)
-        );
-
-        pieChart.setData(pieData);
     }
-//    private void dateNow(){
-//        Thread thread = new Thread(()->{
-//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("DD MMMM YYYY");
-//            while (!stop){
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (Exception e) {
-//                    System.out.println(e);
-//                }
-//                final String timenow = simpleDateFormat.format(new Date());
-//                Platform.runLater(()->{
-//                    dashboard.setText(timenow);
-//                });
-//            }
-//        });
-//        thread.start();
-//    }
 
+    public void dataBarang(){
+        try {
+            preparedStatement = DBUtils.getConnect().prepareStatement("SELECT SUM(stok) AS totalbarang FROM databarang");
+            resultSetDataBarang = preparedStatement.executeQuery();
+            resultSetDataBarang.next();
+            totalBarangLabel.setText(String.valueOf(resultSetDataBarang.getInt("totalbarang")));
+
+            preparedStatement = DBUtils.getConnect().prepareStatement("SELECT SUM(totalKulak) AS totalkulak FROM databarang");
+            resultSetDataKulak = preparedStatement.executeQuery();
+            resultSetDataKulak.next();
+            totalKulakLabel.setText(String.valueOf(resultSetDataKulak.getInt("totalkulak")));
+
+            preparedStatement = DBUtils.getConnect().prepareStatement("SELECT SUM(terjual) AS totalterjual FROM laporankeluar");
+            resultSetDataTerjual = preparedStatement.executeQuery();
+            resultSetDataTerjual.next();
+            totalTerjualLabel.setText(String.valueOf(resultSetDataTerjual.getInt("totalterjual")));
+
+            int totalBarang = resultSetDataBarang.getInt("totalbarang");
+            int totalKulak = resultSetDataKulak.getInt("totalkulak");
+            int totalTerjual = resultSetDataTerjual.getInt("totalterjual");
+
+
+            ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList(
+                    new PieChart.Data("Total Barang", totalBarang),
+                    new PieChart.Data("Total Barang Kulak", totalKulak),
+                    new PieChart.Data("Total Barang Terjual", totalTerjual)
+            );
+
+            pieChart.setData(pieData);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void datakeuangan(){
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+        String tanggalNow = formatter.format(now);
+
+        try {
+
+            preparedStatement = DBUtils.getConnect().prepareStatement("SELECT SUM(pendapatan) AS totalpendapatan FROM laporankeluar");
+            resultSetPendapatan = preparedStatement.executeQuery();
+            resultSetPendapatan.next();
+            pendapatanLabel.setText("Rp. " + String.valueOf(resultSetPendapatan.getInt("totalpendapatan")));
+
+            preparedStatement = DBUtils.getConnect().prepareStatement("SELECT SUM(keuntungan) AS totalkeuntungan FROM laporankeluar");
+            resultSetKeuntungan = preparedStatement.executeQuery();
+            resultSetKeuntungan.next();
+            keuntunganLabel.setText("Rp. " + String.valueOf(resultSetKeuntungan.getInt("totalkeuntungan")));
+
+            preparedStatement = DBUtils.getConnect().prepareStatement("SELECT SUM(pendapatan) AS pendapatanupdate FROM laporankeluar WHERE tanggal=?");
+            preparedStatement.setString(1, tanggalNow);
+            resultSetPendapatanUpdate = preparedStatement.executeQuery();
+            resultSetPendapatanUpdate.next();
+            int totalPendapatanUpdate = resultSetPendapatanUpdate.getInt("pendapatanupdate");
+
+            preparedStatement = DBUtils.getConnect().prepareStatement("SELECT SUM(keuntungan) AS keuntunganupdate FROM laporankeluar WHERE tanggal=?");
+            preparedStatement.setString(1, tanggalNow);
+            resultSetKeuntunganUpdate = preparedStatement.executeQuery();
+            resultSetKeuntunganUpdate.next();
+            int totalKeuntunganUpdate = resultSetKeuntunganUpdate.getInt("keuntunganupdate");
+
+            preparedStatement = DBUtils.getConnect().prepareStatement("SELECT * FROM datagrafik");
+            resultSetDataBarang = preparedStatement.executeQuery();
+
+            if (!resultSetDataBarang.isBeforeFirst()){
+                preparedStatement = DBUtils.getConnect().prepareStatement("INSERT INTO datagrafik(tanggal, totalPendapatan, totalKeuntungan) VALUE (?,?,?)");
+                preparedStatement.setString(1, tanggalNow);
+                preparedStatement.setInt(2, totalPendapatanUpdate);
+                preparedStatement.setInt(3, totalKeuntunganUpdate);
+                preparedStatement.execute();
+            }else{
+
+                XYChart.Series series = new XYChart.Series();
+                series.setName("Total pendapatan per hari");
+
+                while (resultSetDataBarang.next()){
+                    String tanggalData = resultSetDataBarang.getString("tanggal");
+                    int pendapatanGrafik = resultSetDataBarang.getInt("totalPendapatan");
+                    series.getData().add(new XYChart.Data(tanggalData, pendapatanGrafik));
+                }
+                lineChart.getData().add(series);
+            }
+
+            preparedStatement = DBUtils.getConnect().prepareStatement("SELECT * FROM datagrafik WHERE tanggal=?");
+            preparedStatement.setString(1, tanggalNow);
+            resultSetGrafik = preparedStatement.executeQuery();
+
+            if (!resultSetGrafik.isBeforeFirst()){
+                preparedStatement = DBUtils.getConnect().prepareStatement("INSERT INTO datagrafik(tanggal, totalPendapatan, totalKeuntungan) VALUE (?,?,?)");
+                preparedStatement.setString(1, tanggalNow);
+                preparedStatement.setInt(2, totalPendapatanUpdate);
+                preparedStatement.setInt(3, totalKeuntunganUpdate);
+                preparedStatement.execute();
+            }else {
+                preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE datagrafik SET totalPendapatan=?, totalKeuntungan=? WHERE tanggal=?");
+                preparedStatement.setInt(1, totalPendapatanUpdate);
+                preparedStatement.setInt(2, totalKeuntunganUpdate);
+                preparedStatement.setString(3, tanggalNow);
+                preparedStatement.execute();
+            }
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

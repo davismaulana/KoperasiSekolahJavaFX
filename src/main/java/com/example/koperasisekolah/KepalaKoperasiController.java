@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -41,6 +43,10 @@ public class KepalaKoperasiController implements Initializable {
     @FXML
     private Label usernameLabel;
 
+    @FXML
+    private AnchorPane dropdownPane;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
@@ -61,6 +67,7 @@ public class KepalaKoperasiController implements Initializable {
         logout.setImage(logoutImage);
 
         pane1.setVisible(false);
+        dropdownPane.setVisible(false);
 
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), pane1);
         fadeTransition.setFromValue(1);
@@ -93,6 +100,7 @@ public class KepalaKoperasiController implements Initializable {
 
             fadeTransition1.setOnFinished(event1 -> {
                 pane1.setVisible(false);
+                dropdownPane.setVisible(false);
             });
 
             TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5),pane2);
@@ -101,7 +109,7 @@ public class KepalaKoperasiController implements Initializable {
         });
 
         try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("Laporan.fxml"));
+            Parent fxml = FXMLLoader.load(getClass().getResource("LaporanBarangMasukKepala.fxml"));
             contentArea.getChildren().removeAll();
             contentArea.getChildren().setAll(fxml);
         } catch (IOException e) {
@@ -111,9 +119,20 @@ public class KepalaKoperasiController implements Initializable {
         logout_btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.changeSceneKepala(event, "login.fxml", null);
                 Stage stage = (Stage) logout_btn.getScene().getWindow();
                 stage.close();
+
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(KoperasiSekolahApplication.class.getResource("login.fxml"));
+                    Scene scene = null;
+                    scene = new Scene(fxmlLoader.load(), 520, 400);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.setScene(scene);
+                    stage.centerOnScreen();
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -137,10 +156,19 @@ public class KepalaKoperasiController implements Initializable {
     }
 
     public void laporanPane(ActionEvent event) throws Exception{
-        Parent fxml = FXMLLoader.load(getClass().getResource("Laporan.fxml"));
+        dropdownPane.setVisible(true);
+    }
+    public void barangMasukPane(ActionEvent event) throws Exception{
+        Parent fxml = FXMLLoader.load(getClass().getResource("LaporanBarangMasukKepala.fxml"));
         contentArea.getChildren().removeAll();
         contentArea.getChildren().setAll(fxml);
     }
+    public void barangKeluarPane(ActionEvent event) throws Exception{
+        Parent fxml = FXMLLoader.load(getClass().getResource("LaporanBarangKeluarKepala.fxml"));
+        contentArea.getChildren().removeAll();
+        contentArea.getChildren().setAll(fxml);
+    }
+
 
     public void setUserInformation(String username){
         usernameLabel.setText(username);

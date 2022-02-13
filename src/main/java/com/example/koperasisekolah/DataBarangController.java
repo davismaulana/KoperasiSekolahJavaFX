@@ -71,37 +71,31 @@ public class DataBarangController implements Initializable {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
             String tanggal = formatter.format(now);
 
+            int pengeluaran = hargaKulak * jumlah;
 
-            int totalBarang = jumlah;
-            int totalKulak = jumlah;
-            int totalTerjual = 0;
-            int totalKeuntungan = 0;
-            int totalPendapatan = 0;
-            int totalPengeluaran = jumlah * hargaKulak;
             LocalDateTime now1 = LocalDateTime.now();
             DateTimeFormatter bulanformatter = DateTimeFormatter.ofPattern("MMMM");
             String bulan = bulanformatter.format(now1);
 
             PreparedStatement preparedStatement = null;
             try {
-                preparedStatement = DBUtils.getConnect().prepareStatement("INSERT INTO databarang(namaBarang, stok, harga, kulak, tanggal) VALUES(?,?,?,?,?)");
+                preparedStatement = DBUtils.getConnect().prepareStatement("INSERT INTO databarang(namaBarang, stok, harga, kulak, totalKulak, tanggal) VALUES(?,?,?,?,?,?)");
                 preparedStatement.setString(1,namaBarang);
                 preparedStatement.setInt(2, jumlah);
                 preparedStatement.setInt(3,harga);
                 preparedStatement.setInt(4,hargaKulak);
-                preparedStatement.setString(5,tanggal);
+                preparedStatement.setInt(5, jumlah);
+                preparedStatement.setString(6,tanggal);
                 preparedStatement.execute();
 
-                preparedStatement = DBUtils.getConnect().prepareStatement("INSERT INTO information(namaBarang, totalBarang, totalKulak, totalTerjual, totalPengeluaran, totalPendapatan, totalKeuntungan, tanggal, bulan) VALUES(?,?,?,?,?,?,?,?,?)");
-                preparedStatement.setString(1,namaBarang);
-                preparedStatement.setInt(2,totalBarang);
-                preparedStatement.setInt(3, totalKulak);
-                preparedStatement.setInt(4,totalTerjual);
-                preparedStatement.setInt(5,totalPengeluaran);
-                preparedStatement.setInt(6,totalPendapatan);
-                preparedStatement.setInt(7,totalKeuntungan);
-                preparedStatement.setString(8,tanggal);
-                preparedStatement.setString(9,bulan);
+                preparedStatement = DBUtils.getConnect().prepareStatement("INSERT INTO laporanmasuk(tanggal, bulan, namaBarang, harga, kulak, jumlahKulak, pengeluaran) VALUES(?,?,?,?,?,?,?)");
+                preparedStatement.setString(1,tanggal);
+                preparedStatement.setString(2,bulan);
+                preparedStatement.setString(3, namaBarang);
+                preparedStatement.setInt(4,harga);
+                preparedStatement.setInt(5,hargaKulak);
+                preparedStatement.setInt(6,jumlah);
+                preparedStatement.setInt(7,pengeluaran);
                 preparedStatement.execute();
 
                 panelBarang.getChildren().clear();
@@ -156,9 +150,6 @@ public class DataBarangController implements Initializable {
                         preparedStatement.setString(1, idBarang);
                         preparedStatement.execute();
 
-                        preparedStatement = DBUtils.getConnect().prepareStatement("DELETE FROM information WHERE namaBarang= ?");
-                        preparedStatement.setString(1, namaBarangData);
-                        preparedStatement.execute();
 
                         panelBarang.getChildren().clear();
                         showData();
