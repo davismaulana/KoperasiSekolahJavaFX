@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,13 +30,7 @@ public class LaporanMasukController implements Initializable {
     private ImageView hapusRiwayat;
 
     @FXML
-    private DatePicker kalender;
-
-    @FXML
     private Label pengeluaranLabel;
-
-    @FXML
-    private ImageView tanggal;
 
     @FXML
     private ImageView uang;
@@ -57,10 +50,6 @@ public class LaporanMasukController implements Initializable {
         File hapusRiwayatFile = new File("image/icons8-delete-48.png");
         Image hapusRiwayatImage = new Image(hapusRiwayatFile.toURI().toString());
         hapusRiwayat.setImage(hapusRiwayatImage);
-
-        File tanggalFile = new File("image/icons8-calendar-100.png");
-        Image tanggalImage = new Image(tanggalFile.toURI().toString());
-        tanggal.setImage(tanggalImage);
 
         File uangFile = new File("image/icons8-paper-money-96.png");
         Image uangImage = new Image(uangFile.toURI().toString());

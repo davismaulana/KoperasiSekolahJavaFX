@@ -190,18 +190,6 @@ public class DataBarangController implements Initializable {
                             preparedStatement.setInt(6, Integer.parseInt(idBarang));
                             preparedStatement.executeUpdate();
 
-                            preparedStatement = DBUtils.getConnect().prepareStatement("UPDATE information SET namaBarang= ?, totalBarang= ?, totalKulak= ?, totalTerjual= ?, totalPengeluaran= ?, totalPendapatan= ?, totalKeuntungan= ?, tanggal= ?, bulan= ? WHERE namaBarang= ?");
-                            preparedStatement.setString(1, namaBarang);
-                            preparedStatement.setInt(2, jumlah);
-                            preparedStatement.setInt(3, jumlah);
-                            preparedStatement.setInt(4, 0);
-                            preparedStatement.setInt(5, jumlah * hargaKulak);
-                            preparedStatement.setInt(6, 0);
-                            preparedStatement.setInt(7, 0);
-                            preparedStatement.setString(8, tanggal);
-                            preparedStatement.setString(9, bulan);
-                            preparedStatement.setString(10, namaBarang);
-                            preparedStatement.executeUpdate();
 
                             panelBarang.getChildren().clear();
                             showData();

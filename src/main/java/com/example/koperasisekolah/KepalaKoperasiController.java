@@ -119,20 +119,20 @@ public class KepalaKoperasiController implements Initializable {
         logout_btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Stage stage = (Stage) logout_btn.getScene().getWindow();
-                stage.close();
-
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(KoperasiSekolahApplication.class.getResource("login.fxml"));
                     Scene scene = null;
                     scene = new Scene(fxmlLoader.load(), 520, 400);
-                    stage.initStyle(StageStyle.UNDECORATED);
-                    stage.setScene(scene);
-                    stage.centerOnScreen();
-                    stage.show();
+                    Stage stage1 = new Stage();
+                    stage1.initStyle(StageStyle.UNDECORATED);
+                    stage1.setScene(scene);
+                    stage1.centerOnScreen();
+                    stage1.show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                Stage stage = (Stage) logout_btn.getScene().getWindow();
+                stage.close();
             }
         });
     }

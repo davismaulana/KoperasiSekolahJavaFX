@@ -114,15 +114,6 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <Label layoutX="33.0" layoutY="123.0" text="Search : ">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField layoutX="113.0" layoutY="124.0" prefHeight="29.0" prefWidth="221.0" style="-fx-background-radius: 15;">
-         <font>
-            <Font size="14.0" />
-         </font></TextField>
       <Line endX="100.0" layoutX="130.0" layoutY="62.0" startX="-100.0" stroke="#fc9918" strokeWidth="2.0" />
       <AnchorPane fx:id="formPane" layoutX="-10.0" prefHeight="200.0" prefWidth="342.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
